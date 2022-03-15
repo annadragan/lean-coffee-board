@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <>
-      <h1>Lean Coffee Board</h1>
+      <h1>☕ Lean Coffee Board</h1>
       <Grid role="list">
         {entries.map(({ text, author }, index) => (
           <li key={index}>

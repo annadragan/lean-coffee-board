@@ -12,7 +12,7 @@ describe('EntryForm', () => {
     expect(submitButton).toBeInTheDocument();
     expect(input).toBeInTheDocument();
   });
-  it('blabla', () => {
+  it('info', () => {
     const handleSubmit = jest.fn();
     render(<EntryForm onEntry={handleSubmit} />);
 
