@@ -27,6 +27,7 @@ export default function EntryForm({ onSubmit }) {
     const form = event.target;
     const inputElement = form.elements.text;
     onSubmit(inputElement.value);
+    form.reset();
   }
 }
 
@@ -47,6 +48,7 @@ const StyledInput = styled.input`
   padding: 7px;
   width: 100%;
   margin-right: 20px;
+  letter-spacing: 1px;
   background-color: lightcyan;
   &::placeholder {
     font-size: 0.8rem;
