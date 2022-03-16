@@ -3,22 +3,17 @@ import EntryForm from './EntryForm';
 import userEvent from '@testing-library/user-event';
 
 describe('EntryForm', () => {
-  it('shows a form with an input and a button', () => {
-    render(<EntryForm />);
+  it('shows a text and the author', () => {
+    const callback = jest.fn();
+    render(<EntryForm onSubmit={callback} />);
 
-    const input = screen.getByLabelText(/Create/i);
-    const submitButton = screen.getByRole('button', { name: /Submit/i });
+    const form = screen.getByRole('form', { name: 'Create new entry' });
+    expect(form).toBeInTheDocument();
 
-    expect(submitButton).toBeInTheDocument();
-    expect(input).toBeInTheDocument();
-  });
-  it('info', () => {
-    const handleSubmit = jest.fn();
-    render(<EntryForm onEntry={handleSubmit} />);
+    const input = screen.getByLabelText('Entry text');
+    userEvent.type(input, 'Lorem ipsum dolor sit.{enter}');
+    expect(form).toContainElement(input);
 
-    const submitButton = screen.getByRole('button', { name: /Submit/i });
-    userEvent.click(submitButton);
-
-    expect(handleSubmit).toHaveBeenCalled();
+    expect(callback).toHaveBeenCalledWith('Lorem ipsum dolor sit.');
   });
 });

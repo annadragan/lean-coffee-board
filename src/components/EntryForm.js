@@ -1,35 +1,41 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import ScreenReaderOnly from './ScreenReaderOnly.js';
 
-export default function EntryForm() {
-  const [newEntry, setNewEntry] = useState('');
-
+export default function EntryForm({ onSubmit }) {
   return (
-    <FormWrapper onSubmit={handleSubmit}>
-      <Label htmlFor="entry-form">Create a form: </Label>
+    <FormWrapper onSubmit={handleSubmit} aria-labelledby="entry-form-name">
+      <Label htmlFor="text">
+        <ScreenReaderOnly>Entry text</ScreenReaderOnly>{' '}
+      </Label>
       <StyledInput
-        name="entry-form"
-        id="entry-form"
-        placeholder="write some Text..."
-        onChange={event => setNewEntry(event.target.value)}
-        value={newEntry}
+        name="text"
+        id="text"
+        placeholder="Just some text ..."
+        autoComplete="off"
+        type="text"
       ></StyledInput>
-      <StyledButton>Submit</StyledButton>
+      <StyledButton id="entry-form-name">
+        {' '}
+        <ScreenReaderOnly>Create new entry</ScreenReaderOnly>
+        <div aria-hidden="true">+</div>
+      </StyledButton>
     </FormWrapper>
   );
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(newEntry);
-    setNewEntry('');
+    const form = event.target;
+    const inputElement = form.elements.text;
+    onSubmit(inputElement.value);
   }
 }
 
 const FormWrapper = styled.form`
   background-color: mistyrose;
   display: flex;
-  height: 48px;
-  bottom: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
   width: 100%;
   padding: 10px;
   border-radius: 4px;
@@ -39,20 +45,32 @@ const StyledInput = styled.input`
   border: 1px solid midnightblue;
   border-radius: 4px;
   padding: 7px;
-  margin: 0 7px;
-  font-style: italic;
+  width: 100%;
+  margin-right: 20px;
   background-color: lightcyan;
-  font-size: 0.8rem;
+  &::placeholder {
+    font-size: 0.8rem;
+    font-style: italic;
+  }
 `;
 
 const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
   border: 1px solid midnightblue;
   padding: 5px;
   border-radius: 999px;
   background-color: rosybrown;
   color: azure;
   font-size: 0.9rem;
+  line-height: 0;
+  width: 28px;
+  height: 28px;
+  div {
+    margin-top: -1px;
+  }
 `;
+
 const Label = styled.label`
   font-size: 1.2rem;
   color: midnightblue;
