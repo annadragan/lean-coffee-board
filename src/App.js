@@ -37,6 +37,7 @@ export default function App() {
       author: 'Anonymous',
     };
 
+    // hello
     mutateEntries([...entries, newEntry], false);
 
     await fetch('/api/entries', {
