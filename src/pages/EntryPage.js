@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-export default function EntryPage() {
+export default function EntryPage({ user }) {
   const {
     data: entries,
     error: entriesError,
@@ -35,7 +35,7 @@ export default function EntryPage() {
   async function handleNewEntry(text) {
     const newEntry = {
       text,
-      author: 'Anonymous',
+      author: user,
     };
 
     mutateEntries([...entries, newEntry], false);

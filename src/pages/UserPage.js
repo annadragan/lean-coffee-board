@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export default function UserPage({ handleCreateEntryPage }) {
+export default function UserPage({ onCreateAuthor }) {
   return (
     <>
-      <form onUserSubmit={handleUserSubmit} aria-labelledby="user-page">
-        <Label htmlFor="userName">User name:</Label>
+      <form onSubmit={handleUserSubmit} aria-labelledby="user-page">
+        <Label htmlFor="userName">What is your name?</Label>
         <StyledInput
           name="userName"
           id="userName"
@@ -13,16 +13,16 @@ export default function UserPage({ handleCreateEntryPage }) {
           type="text"
           required
         ></StyledInput>
-        <button onClick={handleCreateEntryPage}>Save</button>
+        <button>Save</button>
       </form>
     </>
   );
 
   function handleUserSubmit(event) {
     event.preventDefault();
-    // const form = event.target;
-    // const inputElement = form.elements.text;
-    // onUserSubmit(inputElement.value);
+    const form = event.target;
+    const inputElement = form.elements.userName;
+    onCreateAuthor(inputElement.value);
   }
 }
 
