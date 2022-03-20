@@ -6,18 +6,23 @@ import { useState } from 'react';
 
 export default function App() {
   const [user, setUser] = useState('');
+  const [userColor, setUserColor] = useState('');
   const navigate = useNavigate();
   return (
     <AppContainer>
       <Routes>
         <Route path="/" element={<UserPage onCreateAuthor={createAuthor} />} />
-        <Route path="/entries" element={<EntryPage user={user} />} />
+        <Route
+          path="/entries"
+          element={<EntryPage user={user} color={userColor} />}
+        />
       </Routes>
     </AppContainer>
   );
 
-  function createAuthor(author) {
+  function createAuthor(author, color) {
     setUser(author);
+    setUserColor(color);
     navigate('/entries');
   }
 }

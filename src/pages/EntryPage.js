@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-export default function EntryPage({ user }) {
+export default function EntryPage({ user, color }) {
   const {
     data: entries,
     error: entriesError,
@@ -21,9 +21,9 @@ export default function EntryPage({ user }) {
       <StyledHeader>☕ Lean Coffee Board</StyledHeader>
       <EntryList role="list">
         {entries
-          ? entries.map(({ text, author, _id }) => (
-              <li key={_id}>
-                <Entry text={text} author={author} />
+          ? entries.map(({ text, author, _id, color, tempId }) => (
+              <li key={_id ?? tempId}>
+                <Entry text={text} author={author} color={color} />
               </li>
             ))
           : '... loading ...'}
@@ -36,6 +36,8 @@ export default function EntryPage({ user }) {
     const newEntry = {
       text,
       author: user,
+      color: color,
+      tempId: Math.random(),
     };
 
     mutateEntries([...entries, newEntry], false);

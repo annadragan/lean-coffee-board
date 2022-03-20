@@ -8,11 +8,13 @@ export default function UserPage({ onCreateAuthor }) {
         <StyledInput
           name="userName"
           id="userName"
-          autoComplet="off"
+          autoComplete="off"
           placeholder="your name..."
           type="text"
           required
         ></StyledInput>
+        <label htmlFor="color">Choose a color:</label>
+        <input type="color" name="color" defaultValue="#D70761"></input>
         <button>Save</button>
       </form>
     </>
@@ -22,7 +24,8 @@ export default function UserPage({ onCreateAuthor }) {
     event.preventDefault();
     const form = event.target;
     const inputElement = form.elements.userName;
-    onCreateAuthor(inputElement.value);
+    const inputColor = form.elements.color;
+    onCreateAuthor(inputElement.value, inputColor.value);
   }
 }
 
