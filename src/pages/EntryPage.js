@@ -22,9 +22,9 @@ export default function EntryPage({ user, color }) {
       <StyledHeader>☕ Lean Coffee Board</StyledHeader>
       <EntryList role="list">
         {entries
-          ? entries.map(({ text, author, _id, color, data, tempId }) => (
+          ? entries.map(({ text, author, _id, color, date, tempId }) => (
               <li key={_id ?? tempId}>
-                <Entry text={text} author={author} color={color} data={data} />
+                <Entry text={text} author={author} color={color} date={date} />
               </li>
             ))
           : '... loading ...'}
