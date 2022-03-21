@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export default function Entry({ text, author, color }) {
+export default function Entry({ text, author, color, date }) {
   return (
     <Card color={color}>
-      {text} ({author})
+      {text} ({author}) {date}
     </Card>
   );
 }

@@ -13,6 +13,7 @@ export default function EntryForm({ onSubmit }) {
         placeholder="Just some text ..."
         autoComplete="off"
         type="text"
+        minLength={3}
         required
       ></StyledInput>
       <StyledButton id="entry-form-name">
@@ -58,17 +59,20 @@ const StyledInput = styled.input`
 `;
 
 const StyledButton = styled.button`
-  display: flex;
-  align-items: center;
-  border: 1px solid midnightblue;
-  padding: 5px;
-  border-radius: 999px;
-  background-color: rosybrown;
-  color: azure;
-  font-size: 0.9rem;
-  line-height: 0;
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  margin: 4px;
+  padding-top: 4px;
+  border: 1px solid white;
+  border-radius: 50%;
+  background-color: green;
+  color: white;
+  &:hover {
+    background-color: hotpink;
+    color: white;
+    transition: 0.4s;
+  }
   div {
     margin-top: -1px;
   }
