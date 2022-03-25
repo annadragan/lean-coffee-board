@@ -13,8 +13,6 @@ export default function EntryForm({ onSubmit }) {
         placeholder="Just some text ..."
         autoComplete="off"
         type="text"
-        minLength={3}
-        required
       ></StyledInput>
       <StyledButton id="entry-form-name">
         {' '}

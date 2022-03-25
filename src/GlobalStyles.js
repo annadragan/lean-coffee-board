@@ -5,10 +5,15 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html, body, #root {
+    height: 100%;
+  }
+
   body {
     margin: 12px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 112.5%;
+    background-color: #0e101c;
   }
 
   input, label, button, textarea {
@@ -17,6 +22,8 @@ export default createGlobalStyle`
 
   h1 {
     color: green;
+    background-color: mistyrose;
+    border-radius: 5px;
   }
 
 `;

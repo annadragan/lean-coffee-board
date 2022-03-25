@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Entry from '../components/Entry';
 import EntryForm from '../components/EntryForm';
 import useSWR from 'swr';
-import dayjs from 'dayjs';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
@@ -18,19 +17,26 @@ export default function EntryPage({ user, color }) {
   if (entriesError) return <h1>Sorry, could not fetch.</h1>;
 
   return (
-    <Wrapper>
+    <>
       <StyledHeader>☕ Lean Coffee Board</StyledHeader>
       <EntryList role="list">
         {entries
-          ? entries.map(({ text, author, _id, color, date, tempId }) => (
+          ? entries.map(({ text, author, _id, color, tempId, createdAt }) => (
               <li key={_id ?? tempId}>
-                <Entry text={text} author={author} color={color} date={date} />
+                <Entry
+                  _id={_id}
+                  text={text}
+                  author={author}
+                  color={color}
+                  createdAt={createdAt}
+                  onDelete={() => handleUserDelete(_id)}
+                />
               </li>
             ))
           : '... loading ...'}
       </EntryList>
       <EntryForm onSubmit={handleNewEntry} />
-    </Wrapper>
+    </>
   );
 
   async function handleNewEntry(text) {
@@ -38,7 +44,6 @@ export default function EntryPage({ user, color }) {
       text,
       author: user,
       color: color,
-      date: dayjs().format('D.MM.YY'),
       tempId: Math.random(),
     };
 
@@ -54,15 +59,31 @@ export default function EntryPage({ user, color }) {
 
     mutateEntries();
   }
+
+  async function handleUserDelete(_id) {
+    const filteredEntries = entries.filter(entry => entry._id !== _id);
+    mutateEntries(filteredEntries, false);
+
+    await fetch('/api/entries', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id }),
+    });
+    mutateEntries();
+  }
 }
 
-const Wrapper = styled.div``;
 const EntryList = styled.ul`
   display: grid;
   gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 100px;
   list-style: none;
   padding: 0;
 `;
+
 const StyledHeader = styled.h1`
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(39, 50, 47, 0.25);

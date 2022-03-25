@@ -27,4 +27,9 @@ export default function App() {
   }
 }
 
-const AppContainer = styled.div``;
+const AppContainer = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr auto;
+  padding: 0 20px 12px;
+`;
