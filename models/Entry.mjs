@@ -15,6 +15,10 @@ const schema = new mongoose.Schema(
       type: String,
       default: '#e6a592;',
     },
+    isChecked: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     versionKey: false,

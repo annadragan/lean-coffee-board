@@ -6,7 +6,7 @@ GET {{baseUrl}}
 ### GET /api/does-not-exist - 404
 GET {{baseUrl}}/does-not-exist
 
-
+### GET ALL entries
 GET {{baseUrl}}/entries
 
 ###
@@ -16,7 +16,15 @@ Content-Type: application/json
 
 {
   "text": "Another text",
-  "author": "John"
+  "author": "Anna"
+}
+
+### TOGGLE MARK-AS-DONE
+PATCH {{baseUrl}}/entries/mark-as-done
+Content-Type: application/json
+
+{
+  "_id": "6239d3bb7b83e64ce6a997ff"
 }
 
 ###

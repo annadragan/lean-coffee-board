@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import useSWR from 'swr';
+
 import Entry from '../components/Entry';
 import EntryForm from '../components/EntryForm';
-import useSWR from 'swr';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
@@ -14,7 +15,7 @@ export default function EntryPage({ user, color }) {
     refreshInterval: 1000,
   });
 
-  if (entriesError) return <h1>Sorry, could not fetch.</h1>;
+  if (entriesError) return <h1>Sorry, could not fetch data</h1>;
 
   return (
     <>
@@ -29,7 +30,7 @@ export default function EntryPage({ user, color }) {
                   author={author}
                   color={color}
                   createdAt={createdAt}
-                  onDelete={() => handleUserDelete(_id)}
+                  onDelete={() => handleDelete(_id)}
                 />
               </li>
             ))
@@ -60,7 +61,7 @@ export default function EntryPage({ user, color }) {
     mutateEntries();
   }
 
-  async function handleUserDelete(_id) {
+  async function handleDelete(_id) {
     const filteredEntries = entries.filter(entry => entry._id !== _id);
     mutateEntries(filteredEntries, false);
 

@@ -15,7 +15,7 @@ export default function Entry({
   isChecked,
 }) {
   return (
-    <Card color={color}>
+    <Card>
       <FlexBetween>
         <small>
           <AiOutlineClockCircle style={{ verticalAlign: 'bottom' }} />{' '}
@@ -26,20 +26,19 @@ export default function Entry({
         <label htmlFor={'mark-done-' + _id}>
           <ScreenReaderOnly>Mark as done</ScreenReaderOnly>
         </label>
-        <input
-          checked={isChecked}
-          onChange={onCheck}
-          id={'mark-done-' + _id}
-          type="checkbox"
-        />
+        <CheckboxInput>
+          <input
+            checked={isChecked}
+            onChange={onCheck}
+            id={'mark-done-' + _id}
+            type="checkbox"
+          />
+        </CheckboxInput>
         <br />
       </FlexBetween>
       {text}
       <FlexBetween>
-        <Author>({author})</Author>
-        {/* <BookmarkButton>
-        <BsFillBookmarkFill />
-      </BookmarkButton> */}
+        <Author color={color}>({author})</Author>
         <TrashButton type="button" onClick={onDelete} />
       </FlexBetween>
     </Card>
@@ -47,6 +46,7 @@ export default function Entry({
 }
 
 const Card = styled.section`
+  position: relative;
   display: grid;
   align-content: space-between;
   padding: 20px;
@@ -56,7 +56,7 @@ const Card = styled.section`
   border-radius: 4px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  background-color: ${props => (props.color ? props.color : '#c7939d')};
+  background-color: ${props => (props.color ? props.color : '#e6a592')};
 `;
 
 const Author = styled.p`
@@ -82,26 +82,19 @@ const TrashButton = styled.button.attrs(() => ({
   ),
 }))`
   all: unset;
-  border: none;
   background: transparent;
   width: min-content;
   padding-top: 2px;
-  font-size: 1.2rem;
   &:hover {
     color: crimson;
   }
   &:focus:focus-visible {
     outline: 2px dashed;
   }
-  border: none;
-  padding: 3px;
-  border-radius: 999px;
-  background-color: #ccd;
-  align-self: center;
-  margin-right: 0;
-  color: red;
 `;
 
-// const BookmarkButton = styled.button`
-//   color: green;
-// `;
+const CheckboxInput = styled.div`
+  position: absolute;
+  right: 20px;
+  top: 10px;
+`;
